@@ -18,6 +18,15 @@
 	include_once("includes/session.inc");
 
 	add_access_extensions();
+
+	// Redirect admin users to the admin dashboard by default (no specific application requested)
+	if (!isset($_GET['application'])
+		&& $_SESSION["wa_current_user"]->logged_in()
+		&& $_SESSION["wa_current_user"]->can_access('SA_SETUPCOMPANY')) {
+		header("Location: " . $path_to_root . "/admin/admin_dashboard.php");
+		exit();
+	}
+
 	$app = &$_SESSION["App"];
 	if (isset($_GET['application']))
 		$app->selected_application = $_GET['application'];
