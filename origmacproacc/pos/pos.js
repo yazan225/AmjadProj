@@ -1,0 +1,1 @@
+// JavaScript functions (add to cart, calculate total, etc.)

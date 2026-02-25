@@ -1,0 +1,1536 @@
+﻿<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الدليل الشامل لنظام MacPro Accounting</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --success: #27ae60;
+            --warning: #f39c12;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --text: #333;
+            --text-light: #7f8c8d;
+            --shadow: 0 4px 6px rgba(0,0,0,0.1);
+            --transition: all 0.3s ease;
+        }
+        
+        body {
+            font-family: 'Segoe UI', 'Tahoma', 'Arial', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: var(--text);
+            line-height: 1.7;
+            min-height: 100vh;
+        }
+        
+        .container {
+            display: flex;
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: var(--shadow);
+            min-height: 100vh;
+        }
+        
+        /* الشريط الجانبي */
+        .sidebar {
+            width: 300px;
+            background: var(--primary);
+            color: white;
+            padding: 0;
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            overflow-y: auto;
+        }
+        
+        .logo {
+            padding: 30px 20px;
+            text-align: center;
+            background: rgba(0,0,0,0.2);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .logo h1 {
+            font-size: 1.5em;
+            margin-bottom: 5px;
+        }
+        
+        .logo p {
+            color: var(--light);
+            font-size: 0.9em;
+        }
+        
+        .nav-links {
+            padding: 20px 0;
+        }
+        
+        .nav-item {
+            padding: 15px 25px;
+            border-right: 4px solid transparent;
+            transition: var(--transition);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .nav-item:hover {
+            background: rgba(255,255,255,0.1);
+            border-right-color: var(--secondary);
+        }
+        
+        .nav-item.active {
+            background: rgba(52, 152, 219, 0.2);
+            border-right-color: var(--secondary);
+            font-weight: bold;
+        }
+        
+        .nav-item i {
+            width: 20px;
+            text-align: center;
+        }
+        
+        .sub-nav {
+            background: rgba(0,0,0,0.2);
+            padding-right: 40px;
+        }
+        
+        .sub-nav .nav-item {
+            padding: 12px 25px;
+            font-size: 0.9em;
+        }
+        
+        /* المحتوى الرئيسي */
+        .main-content {
+            flex: 1;
+            padding: 0;
+            overflow-y: auto;
+            height: 100vh;
+        }
+        
+        .content-section {
+            display: none;
+            padding: 40px;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .content-section.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .section-header {
+            background: linear-gradient(135deg, var(--secondary), #2980b9);
+            color: white;
+            padding: 30px 40px;
+            margin: -40px -40px 30px -40px;
+            border-radius: 0 0 20px 20px;
+            box-shadow: var(--shadow);
+        }
+        
+        .section-header h2 {
+            font-size: 2.2em;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .section-header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+            max-width: 800px;
+        }
+        
+        /* البطاقات */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: var(--shadow);
+            border-right: 5px solid var(--secondary);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.15);
+        }
+        
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .card-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--secondary);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.3em;
+        }
+        
+        .card-title {
+            font-size: 1.4em;
+            color: var(--primary);
+            margin: 0;
+        }
+        
+        .step-list {
+            list-style: none;
+            margin: 20px 0;
+        }
+        
+        .step-item {
+            padding: 12px 0;
+            padding-right: 40px;
+            position: relative;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .step-item:last-child {
+            border-bottom: none;
+        }
+        
+        .step-number {
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 26px;
+            height: 26px;
+            background: var(--success);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8em;
+            font-weight: bold;
+        }
+        
+        .path {
+            background: #f8f9fa;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #e9ecef;
+            color: var(--dark);
+            font-weight: 500;
+        }
+        
+        .note {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-right: 4px solid var(--warning);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            color: #856404;
+        }
+        
+        .note.warning {
+            background: #f8d7da;
+            border-color: #f5c6cb;
+            border-right-color: var(--accent);
+            color: #721c24;
+        }
+        
+        .note.success {
+            background: #d1edf1;
+            border-color: #bee5eb;
+            border-right-color: var(--success);
+            color: #0c5460;
+        }
+        
+        .example {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            line-height: 1.8;
+            border-right: 4px solid var(--secondary);
+        }
+        
+        .checklist {
+            list-style: none;
+            margin: 20px 0;
+        }
+        
+        .checklist li {
+            padding: 10px 0;
+            padding-right: 35px;
+            position: relative;
+        }
+        
+        .checklist li:before {
+            content: "✓";
+            position: absolute;
+            right: 0;
+            color: var(--success);
+            font-weight: bold;
+            font-size: 1.2em;
+            width: 25px;
+            height: 25px;
+            background: #d5f4e6;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .progress-section {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 30px 0;
+            box-shadow: var(--shadow);
+            border: 2px solid var(--light);
+        }
+        
+        .progress-header {
+            display: flex;
+            justify-content: between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .progress-title {
+            font-size: 1.3em;
+            color: var(--primary);
+        }
+        
+        .progress-bar {
+            height: 10px;
+            background: #ecf0f1;
+            border-radius: 5px;
+            overflow: hidden;
+            margin: 15px 0;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--success), #2ecc71);
+            border-radius: 5px;
+            transition: width 0.5s ease;
+        }
+        
+        .search-box {
+            position: sticky;
+            top: 0;
+            background: white;
+            padding: 20px 40px;
+            border-bottom: 1px solid #ecf0f1;
+            z-index: 100;
+        }
+        
+        .search-container {
+            position: relative;
+            max-width: 500px;
+        }
+        
+        .search-input {
+            width: 100%;
+            padding: 12px 20px;
+            padding-right: 50px;
+            border: 2px solid #ecf0f1;
+            border-radius: 25px;
+            font-size: 1em;
+            transition: var(--transition);
+        }
+        
+        .search-input:focus {
+            border-color: var(--secondary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+        }
+        
+        .search-icon {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-light);
+        }
+        
+        @media (max-width: 1024px) {
+            .container {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+            }
+            
+            .main-content {
+                height: auto;
+            }
+            
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .print-btn {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            background: var(--secondary);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            cursor: pointer;
+            z-index: 1000;
+            transition: var(--transition);
+        }
+        
+        .print-btn:hover {
+            background: #2980b9;
+            transform: scale(1.1);
+        }
+
+        .table-container {
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+        
+        .info-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+        
+        .info-table th {
+            background: var(--primary);
+            color: white;
+            padding: 15px;
+            text-align: right;
+            font-weight: 600;
+        }
+        
+        .info-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #ecf0f1;
+        }
+        
+        .info-table tr:hover {
+            background: #f8f9fa;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- الشريط الجانبي -->
+        <div class="sidebar">
+            <div class="logo">
+                <h1><i class="fas fa-book"></i> دليل MacPro Accounting</h1>
+                <p>الدليل الشامل للتشغيل والإعداد</p>
+            </div>
+            
+            <div class="nav-links">
+                <div class="nav-item active" data-target="intro">
+                    <i class="fas fa-home"></i>
+                    <span>مقدمة وشروحات أساسية</span>
+                </div>
+                
+                <div class="nav-item" data-target="company-setup">
+                    <i class="fas fa-building"></i>
+                    <span>إعداد الشركة</span>
+                </div>
+                
+                <div class="nav-item" data-target="warehouse-setup">
+                    <i class="fas fa-warehouse"></i>
+                    <span>إعداد المخازن</span>
+                </div>
+                
+                <div class="nav-item" data-target="customers-setup">
+                    <i class="fas fa-users"></i>
+                    <span>إدارة العملاء</span>
+                </div>
+                
+                <div class="nav-item" data-target="suppliers-setup">
+                    <i class="fas fa-truck"></i>
+                    <span>إدارة الموردين</span>
+                </div>
+                
+                <div class="nav-item" data-target="items-setup">
+                    <i class="fas fa-boxes"></i>
+                    <span>إدارة الأصناف</span>
+                </div>
+                
+                <div class="nav-item" data-target="sales-operations">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span>عمليات المبيعات</span>
+                </div>
+                
+                <div class="nav-item" data-target="purchase-operations">
+                    <i class="fas fa-shopping-bag"></i>
+                    <span>عمليات الشراء</span>
+                </div>
+                
+                <div class="nav-item" data-target="reports">
+                    <i class="fas fa-chart-bar"></i>
+                    <span>التقارير والإحصائيات</span>
+                </div>
+                
+                <div class="nav-item" data-target="troubleshooting">
+                    <i class="fas fa-tools"></i>
+                    <span>استكشاف الأخطاء</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- المحتوى الرئيسي -->
+        <div class="main-content">
+            <div class="search-box">
+                <div class="search-container">
+                    <input type="text" class="search-input" placeholder="ابحث في الدليل...">
+                    <i class="fas fa-search search-icon"></i>
+                </div>
+            </div>
+            
+            <!-- قسم المقدمة -->
+            <div class="content-section active" id="intro">
+                <div class="section-header">
+                    <h2><i class="fas fa-home"></i> مقدمة وشروحات أساسية</h2>
+                    <p>مرحباً بك في الدليل الشامل لنظام MacPro Accounting، ستتعلم في هذا الدليل كل ما تحتاجه لتشغيل النظام بكفاءة</p>
+                </div>
+                
+                <div class="cards-grid">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-icon">
+                                <i class="fas fa-info-circle"></i>
+                            </div>
+                            <h3 class="card-title">عن النظام</h3>
+                        </div>
+                        <p>MacPro Accountingهو نظام مفتوح المصدر لإدارة المحاسبة والمخازن والمبيعات، مصمم خصيصاً للشركات الصغيرة والمتوسطة.</p>
+                        <ul class="step-list">
+                            <li class="step-item">
+                                <div class="step-number">1</div>
+                                يدعم إدارة متعددة الشركات
+                            </li>
+                            <li class="step-item">
+                                <div class="step-number">2</div>
+                                واجهة مستخدم عربية كاملة
+                            </li>
+                            <li class="step-item">
+                                <div class="step-number">3</div>
+                                تقارير متقدمة وتحليلات
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-icon">
+                                <i class="fas fa-list-check"></i>
+                            </div>
+                            <h3 class="card-title">خطة التعلم</h3>
+                        </div>
+                        <p>اتبع هذه الخطوات بالترتيب لإتقان النظام:</p>
+                        <ul class="checklist">
+                            <li>إعداد الشركة والمستخدمين</li>
+                            <li>تهيئة المخازن والمواقع</li>
+                            <li>إضافة العملاء والموردين</li>
+                            <li>تسجيل الأصناف والمنتجات</li>
+                            <li>تعلم عمليات البيع والشراء</li>
+                            <li>تحليل التقارير والمؤشرات</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-icon">
+                                <i class="fas fa-key"></i>
+                            </div>
+                            <h3 class="card-title">بيانات الدخول الافتراضية</h3>
+                        </div>
+                        <div class="example">
+اسم المستخدم: admin<br>
+كلمة المرور: password<br>
+<br>
+# للتجربة:<br>
+اسم المستخدم: demouser<br>
+كلمة المرور: password
+                        </div>
+                        <div class="note warning">
+                            <i class="fas fa-exclamation-triangle"></i> غيّر كلمة المرور الافتراضية فور الدخول الأول
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="progress-section">
+                    <div class="progress-header">
+                        <h3 class="progress-title">تقدمك في تعلم النظام</h3>
+                        <span>0% مكتمل</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 0%"></div>
+                    </div>
+                    <p>ابدأ رحلتك مع النظام من خلال استكشاف الأقسام في الشريط الجانبي</p>
+                </div>
+            </div>
+            
+            <!-- قسم إعداد الشركة -->
+            <div class="content-section" id="company-setup">
+                <div class="section-header">
+                    <h2><i class="fas fa-building"></i> إعداد الشركة</h2>
+                    <p>تعلم كيفية إنشاء وإعداد الشركة في النظام مع كل الإعدادات الأساسية</p>
+                </div>
+                
+                <div class="cards-grid">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-icon">
+                                <i class="fas fa-plus-circle"></i>
+                            </div>
+                            <h3 class="card-title">إنشاء شركة جديدة</h3>
+                        </div>
+                        <p>لإنشاء شركة جديدة في النظام:</p>
+                        <ul class="step-list">
+                            <li class="step-item">
+                                <div class="step-number">1</div>
+                                ادخل كمسؤول للنظام
+                            </li>
+                            <li class="step-item">
+                                <div class="step-number">2</div>
+                                اذهب إلى <span class="path">الإدارة → إعداد الشركات</span>
+                            </li>
+                            <li class="step-item">
+                                <div class="step-number">3</div>
+                                انقر على <span class="path">إنشاء شركة جديدة</span>
+                            </li>
+                            <li class="step-item">
+                                <div class="step-number">4</div>
+                                املأ البيانات الأساسية
+                            </li>
+                            <li class="step-item">
+                                <div class="step-number">5</div>
+                                حدد البادئة الرقمية (مثل 2_)
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-icon">
+                                <i class="fas fa-cog"></i>
+                            </div>
+                            <h3 class="card-title">الإعدادات الأساسية</h3>
+                        </div>
+                        <p>البيانات المطلوبة لإنشاء الشركة:</p>
+                        <ul class="checklist">
+                            <li>اسم الشركة الكامل (بالعربية والإنجليزية)</li>
+                            <li>العنوان التفصيلي والموقع</li>
+                            <li>أرقام الهواتف والبريد الإلكتروني</li>
+                            <li>العملة الأساسية (مثل: شيكل، دولار)</li>
+                            <li>بداية السنة المالية</li>
+                            <li>نظام الضرائب المستخدم</li>
+                        </ul>
+                        <div class="note">
+                            <i class="fas fa-lightbulb"></i> البادئة الرقمية تحدد اسم الجداول في قاعدة البيانات
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="note success">
+                    <i class="fas fa-check-circle"></i> بعد إنشاء الشركة بنجاح، يمكنك البدء في إضافة المستخدمين والمخازن
+                </div>
+            </div>
+
+            <!-- قسم إعداد المخازن -->
+            <div class="content-section" id="warehouse-setup">
+                <div class="section-header">
+                    <h2><i class="fas fa-warehouse"></i> إعداد المخازن</h2>
+                    <p>إدارة وتنظيم مواقع التخزين والمستودعات في النظام</p>
+                </div>
+                
+                <div class="cards-grid">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <h3 class="card-title">إضافة مواقع المخازن</h3>
+                        </div>
+                        <p>لإضافة موقع تخزين جديد:</p>
+                        <ul class="step-list">
+                            <li class="step-item">
+                                <div class="step-number">1</div>
+                                اذهب إلى <span class="path">المخزون → مواقع المخازن</span>
+                            </li>
+                            <li class="step-item">
+                                <div class="step-number">2</div>
+                                انقر على <span class="path">إضافة موقع جديد</span>
+                            </li>
+                            <li class="step-item">
+                                <div class="step-number">3</div>
+                                أدخل كود الموقع (مثل: MAIN, STORE)
+                            </li>
+                            <li class="step-item">
+                                <div class="step-number">4</div>
+                                اكتب اسم الموقع بالكامل
+                            </li>
+                            <li class="step-item">
+                                <div class="step-number">5</div>
+                                حدد العنوان وبيانات الاتصال
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-icon">
+                                <i class="fas fa-sitemap"></i>
+                            </div>
+                            <h3 class="card-title">هيكل المخازن المقترح</h3>
+                        </div>
+                        <p>لمنشأة متوسطة الحجم، نوصي بالمخازن التالية:</p>
+                        <div class="example">
+MAIN    - المستودع الرئيسي<br>
+STORE   - مستودع التخزين<br>
+SHOP    - مستودع المبيعات<br>
+RETURN  - مستودع المرتجعات<br>
+DAMAGED - مستودع التالف<br>
+TRANSIT- مستودع العبور
+                        </div>
+                        <div class="note">
+                            <i class="fas fa-lightbulb"></i> يمكنك تخصيص الأكواد والأسماء حسب احتياجات عملك
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-icon">
+                                <i class="fas fa-cogs"></i>
+                            </div>
+                            <h3 class="card-title">إعدادات المخازن المتقدمة</h3>
+                        </div>
+                        <p>إعدادات إضافية مهمة للمخازن:</p>
+                        <ul class="checklist">
+                            <li>تعيين مسؤول لكل مخزن</li>
+                            <li>تحديد سعة التخزين القصوى</li>
+                            <li>إعداد مناطق التخزين (رفوف، أقسام)</li>
+                            <li>ربط المخازن بفروع الشركة</li>
+                            <li>تفعيل نظام الجرد الآلي</li>
+                            <li>إعداد تنبيهات المخزون الأدنى</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="table-container">
+                    <table class="info-table">
+                        <thead>
+                            <tr>
+                                <th>كود المخزن</th>
+                                <th>الاسم</th>
+                                <th>الوصف</th>
+                                <th>المسؤول</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>MAIN</td>
+                                <td>المستودع الرئيسي</td>
+                                <td>المخزن الرئيسي للشركة</td>
+                                <td>مدير المخازن</td>
+                            </tr>
+                            <tr>
+                                <td>STORE</td>
+                                <td>مستودع التخزين</td>
+                                <td>لتخزين البضائع طويلة الأجل</td>
+                                <td>أمين المخزن</td>
+                            </tr>
+                            <tr>
+                                <td>SHOP</td>
+                                <td>مستودع المبيعات</td>
+                                <td>للتجهيز للبيع المباشر</td>
+                                <td>منسق المبيعات</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- قسم إدارة العملاء -->
+            <div class="content-section" id="customers-setup">
+                <div class="section-header">
+                    <h2><i class="fas fa-users"></i> إدارة العملاء</h2>
+                    <p>تنظيم وإدارة قاعدة بيانات العملاء وعلاقات المبيعات</p>
+                </div>
+                
+                <div class="cards-grid">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-icon">
+                                <i class="fas fa-user-plus"></i>
+                            </div>
+                            <h3 class="card-title">إضافة عميل جديد</h3>
+                        </div>
+                        <p>خطوات إضافة عميل جديد للنظام:</p>
+                        <ul class="step-list">
+                            <li class="step-item">
+                                <div class="step-number">1</div>
+                                اذهب إلى <span class="path">المبيعات → العملاء</span>
+                            </li>
+                            <li class="step-item">
+                                <div class="step-number">2</div>
+                                انقر على <span class="path">إضافة عميل جديد</span>
+                            </li>
+                            <li class="step-item">
+                                <div class="step-number">3</div>
+                                اختر فئة العميل المناسبة
+                            </li>
+                            <li class="step-item">
+                                <div class="step-number">4</div>
+                                املأ البيانات الأساسية
+                            </li>
+                            <li class="step-item">
+                                <div class="step-number">5</div>
+                                حدد شروط الدفع والائتمان
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-icon">
+                                <i class="fas fa-tags"></i>
+                            </div>
+                            <h3 class="card-title">فئات العملاء</h3>
+                        </div>
+                        <p>أنظمة تصنيف العملاء الموصى بها:</p>
+                        <div class="example">
+# حسب نوع النشاط:<br>
+- عملاء جملة<br>
+- عملاء تجزئة<br>
+- عملاء موزعين<br>
+<br>
+# حسب طريقة الدفع:<br>
+- عملاء نقدي<br>
+- عملاء آجل (30 يوم)<br>
+- عملاء آجل (60 يوم)
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-icon">
+                                <i class="fas fa-file-invoice-dollar"></i>
+                            </div>
+                            <h3 class="card-title">بيانات العميل الأساسية</h3>
+                        </div>
+                        <p>المعلومات المطلوبة لكل عميل:</p>
+                        <ul class="checklist">
+                            <li>الاسم الكامل أو التجاري</li>
+                            <li>رقم الهوية أو السجل التجاري</li>
+                            <li>العنوان التفصيلي</li>
+                            <li>أرقام الهواتف والبريد الإلكتروني</li>
+                            <li>فئة العميل</li>
+                            <li>حد الائتمان المسموح</li>
+                            <li>شروط الدفع المتفق عليها</li>
+                            <li>تفضيلات الخصم</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="note warning">
+                    <i class="fas fa-exclamation-triangle"></i> يجب إضافة عميل باسم "Walk-In Customer" لاستخدامه في المبيعات النقدية المباشرة
+                </div>
+                
+                <div class="table-container">
+                    <table class="info-table">
+                        <thead>
+                            <tr>
+                                <th>كود العميل</th>
+                                <th>الاسم</th>
+                                <th>الفئة</th>
+                                <th>حد الائتمان</th>
+                                <th>شروط الدفع</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>CUST001</td>
+                                <td>شركة النور للتجارة</td>
+                                <td>عملاء جملة</td>
+                                <td>50,000 ₪</td>
+                                <td>30 يوم</td>
+                            </tr>
+                            <tr>
+                                <td>CUST002</td>
+                                <td>محل الأماني</td>
+                                <td>عملاء تجزئة</td>
+                                <td>10,000 ₪</td>
+                                <td>نقدي</td>
+                            </tr>
+                            <tr>
+                                <td>WALKIN</td>
+                                <td>عميل نقدي</td>
+                                <td>عملاء نقدي</td>
+                                <td>0 ₪</td>
+                                <td>نقدي</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- قسم إدارة الموردين -->
+            <div class="content-section" id="suppliers-setup">
+                <div class="section-header">
+                    <h2><i class="fas fa-truck"></i> إدارة الموردين</h2>
+                    <p>تنظيم وإدارة علاقات الشراء مع الموردين والشركاء</p>
+                </div>
+                
+                <div class="cards-grid">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-icon">
+                                <i class="fas fa-handshake"></i>
+                            </div>
+                            <h3 class="card-title">إضافة مورد جديد</h3>
+                        </div>
+                        <p>خطوات إضافة مورد جديد للنظام:</p>
+                        <ul class="step-list">
+                            <li class="step-item">
+                                <div class="step-number">1</div>
+                                اذهب إلى <span class="path">المشتريات → الموردين</span>
+                            </li>
+                            <li class="step-item">
+                                <div class="step-number">2</div>
+                                انقر على <span class="path">إضافة مورد جديد</span>
+                            </li>
+                            <li class="step-item">
+                                <div class="step-number">3</div>
+                                اختر فئة المورد المناسبة
+                            </li>
+                            <li class="step-item">
+                                <div class="step-number">4</div>
+                                املأ البيانات الأساسية
+                            </li>
+                            <li class="step-item">
+                                <div class="step-number">5</div>
+                                حدد شروط الدفع والاتفاقيات
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-icon">
+                                <i class="fas fa-filter"></i>
+                            </div>
+                            <h3 class="card-title">تصنيف الموردين</h3>
+                        </div>
+                        <p>أنظمة تصنيف الموردين الموصى بها:</p>
+                        <div class="example">
+# حسب نوع التوريد:<br>
+- موردو مواد خام<br>
+- موردو مواد تغليف<br>
+- موردو خدمات<br>
+- موردو معدات<br>
+<br>
+# حسب الموقع:<br>
+- موردون محليون<br>
+- موردون دوليون
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-icon">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <h3 class="card-title">تقييم الموردين</h3>
+                        </div>
+                        <p>معايير تقييم أداء الموردين:</p>
+                        <ul class="checklist">
+                            <li>جودة المنتجات الموردة</li>
+                            <li>الالتزام بمواعيد التسليم</li>
+                            <li>مرونة شروط الدفع</li>
+                            <li>جودة خدمة ما بعد البيع</li>
+                            <li>القدرة على تلبية الطلبات</li>
+                            <li>التنافسية في الأسعار</li>
+                        </ul>
+                        <div class="note">
+                            <i class="fas fa-lightbulb"></i> قم بتحديث تقييم الموردين دورياً لضمان جودة التوريد
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- قسم إدارة الأصناف -->
+            <div class="content-section" id="items-setup">
+                <div class="section-header">
+                    <h2><i class="fas fa-boxes"></i> إدارة الأصناف</h2>
+                    <p>تنظيم وتسجيل جميع الأصناف والمنتجات في النظام</p>
+                </div>
+                
+                <div class="cards-grid">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-icon">
+                                <i class="fas fa-box-open"></i>
+                            </div>
+                            <h3 class="card-title">إضافة صنف جديد</h3>
+                        </div>
+                        <p>خطوات إضافة صنف جديد للنظام:</p>
+                        <ul class="step-list">
+                            <li class="step-item">
+                                <div class="step-number">1</div>
+                                اذهب إلى <span class="path">المخزون → الأصناف</span>
+                            </li>
+                            <li class="step-item">
+                                <div class="step-number">2</div>
+                                انقر على <span class="path">إضافة صنف جديد</span>
+                            </li>
+                            <li class="step-item">
+                                <div class="step-number">3</div>
+                                أدخل كود الصنف الفريد
+                            </li>
+                            <li class="step-item">
+                                <div class="step-number">4</div>
+                                املأ البيانات الأساسية
+                            </li>
+                            <li class="step-item">
+                                <div class="step-number">5</div>
+                                حدد الأسعار والتكاليف
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-icon">
+                                <i class="fas fa-sitemap"></i>
+                            </div>
+                            <h3 class="card-title">هيكل التصنيف</h3>
+                        </div>
+                        <p>هيكل مقترح لتصنيف الأصناف:</p>
+                        <div class="example">
+- المواد الخام<br>
+&nbsp; ├ مواد خام أساسية<br>
+&nbsp; ├ مواد خام ثانوية<br>
+&nbsp; └ مواد تغليف<br>
+<br>
+- المنتجات النهائية<br>
+&nbsp; ├ منتجات أساسية<br>
+&nbsp; ├ منتجات ثانوية<br>
+&nbsp; └ منتجات موسمية<br>
+<br>
+- الخدمات<br>
+&nbsp; ├ خدمات أساسية<br>
+&nbsp; └ خدمات إضافية
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-icon">
+                                <i class="fas fa-balance-scale"></i>
+                            </div>
+                            <h3 class="card-title">وحدات القياس</h3>
+                        </div>
+                        <p>الوحدات الأساسية المطلوبة:</p>
+                        <ul class="checklist">
+                            <li>حبة - للقطع الفردية</li>
+                            <li>كيلو - للوزن</li>
+                            <li>علبة - للعبوات</li>
+                            <li>متر - للأطوال</li>
+                            <li>لتر - للسوائل</li>
+                            <li>رزمة - للمجموعات</li>
+                        </ul>
+                        <div class="note">
+                            <i class="fas fa-lightbulb"></i> يمكنك إضافة وحدات قياس مخصصة تناسب طبيعة عملك
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="table-container">
+                    <table class="info-table">
+                        <thead>
+                            <tr>
+                                <th>كود الصنف</th>
+                                <th>الاسم</th>
+                                <th>الفئة</th>
+                                <th>وحدة القياس</th>
+                                <th>سعر البيع</th>
+                                <th>سعر التكلفة</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>PROD001</td>
+                                <td>منتج رئيسي 1</td>
+                                <td>منتجات أساسية</td>
+                                <td>حبة</td>
+                                <td>50 ₪</td>
+                                <td>30 ₪</td>
+                            </tr>
+                            <tr>
+                                <td>PROD002</td>
+                                <td>منتج رئيسي 2</td>
+                                <td>منتجات أساسية</td>
+                                <td>حبة</td>
+                                <td>70 ₪</td>
+                                <td>45 ₪</td>
+                            </tr>
+                            <tr>
+                                <td>RAW001</td>
+                                <td>مادة خام 1</td>
+                                <td>مواد خام</td>
+                                <td>كيلو</td>
+                                <td>20 ₪</td>
+                                <td>12 ₪</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- قسم عمليات المبيعات -->
+            <div class="content-section" id="sales-operations">
+                <div class="section-header">
+                    <h2><i class="fas fa-shopping-cart"></i> عمليات المبيعات</h2>
+                    <p>إدارة عمليات البيع والفواتير والمستحقات</p>
+                </div>
+                
+                <div class="cards-grid">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-icon">
+                                <i class="fas fa-file-invoice"></i>
+                            </div>
+                            <h3 class="card-title">إنشاء فاتورة بيع</h3>
+                        </div>
+                        <p>خطوات إنشاء فاتورة بيع جديدة:</p>
+                        <ul class="step-list">
+                            <li class="step-item">
+                                <div class="step-number">1</div>
+                                اذهب إلى <span class="path">المبيعات → فواتير البيع</span>
+                            </li>
+                            <li class="step-item">
+                                <div class="step-number">2</div>
+                                انقر على <span class="path">إضافة فاتورة جديدة</span>
+                            </li>
+                            <li class="step-item">
+                                <div class="step-number">3</div>
+                                اختر العميل من القائمة
+                            </li>
+                            <li class="step-item">
+                                <div class="step-number">4</div>
+                                أضف الأصناف والكميات
+                            </li>
+                            <li class="step-item">
+                                <div class="step-number">5</div>
+                                احفظ واطبع الفاتورة
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-icon">
+                                <i class="fas fa-cash-register"></i>
+                            </div>
+                            <h3 class="card-title">نقطة البيع (POS)</h3>
+                        </div>
+                        <p>استخدام نظام نقطة البيع:</p>
+                        <ul class="checklist">
+                            <li>الدخول لنقطة البيع</li>
+                            <li>اختيار العميل (أو استخدام النقدي)</li>
+                            <li>إضافة الأصناف للمبيعات</li>
+                            <li>تطبيق الخصومات إن وجدت</li>
+                            <li>معالجة الدفع</li>
+                            <li>إصدار الفاتورة</li>
+                        </ul>
+                        <div class="note">
+                            <i class="fas fa-lightbulb"></i> نظام نقطة البيع مناسب للمحلات والمتاجر المباشرة
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-icon">
+                                <i class="fas fa-undo-alt"></i>
+                            </div>
+                            <h3 class="card-title">إدارة المرتجعات</h3>
+                        </div>
+                        <p>معالجة مرتجعات المبيعات:</p>
+                        <ul class="step-list">
+                            <li class="step-item">
+                                <div class="step-number">1</div>
+                                اذهب إلى <span class="path">المبيعات → مرتجعات المبيعات</span>
+                            </li>
+                            <li class="step-item">
+                                <div class="step-number">2</div>
+                                اختر الفاتورة الأصلية
+                            </li>
+                            <li class="step-item">
+                                <div class="step-number">3</div>
+                                حدد الأصناف المراد استرجاعها
+                            </li>
+                            <li class="step-item">
+                                <div class="step-number">4</div>
+                                حدد سبب الاسترجاع
+                            </li>
+                            <li class="step-item">
+                                <div class="step-number">5</div>
+                                أنشئ إشعار استرجاع
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- قسم عمليات الشراء -->
+            <div class="content-section" id="purchase-operations">
+                <div class="section-header">
+                    <h2><i class="fas fa-shopping-bag"></i> عمليات الشراء</h2>
+                    <p>إدارة عمليات الشراء والمشتريات والفواتير الواردة</p>
+                </div>
+                
+                <div class="cards-grid">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-icon">
+                                <i class="fas fa-clipboard-list"></i>
+                            </div>
+                            <h3 class="card-title">إنشاء طلب شراء</h3>
+                        </div>
+                        <p>خطوات إنشاء طلب شراء جديد:</p>
+                        <ul class="step-list">
+                            <li class="step-item">
+                                <div class="step-number">1</div>
+                                اذهب إلى <span class="path">المشتريات → طلبات الشراء</span>
+                            </li>
+                            <li class="step-item">
+                                <div class="step-number">2</div>
+                                انقر على <span class="path">إضافة طلب جديد</span>
+                            </li>
+                            <li class="step-item">
+                                <div class="step-number">3</div>
+                                اختر المورد من القائمة
+                            </li>
+                            <li class="step-item">
+                                <div class="step-number">4</div>
+                                أضف الأصناف والكميات المطلوبة
+                            </li>
+                            <li class="step-item">
+                                <div class="step-number">5</div>
+                                أرسل الطلب للمورد
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-icon">
+                                <i class="fas fa-truck-loading"></i>
+                            </div>
+                            <h3 class="card-title">تسليم المشتريات</h3>
+                        </div>
+                        <p>استلام البضائع من الموردين:</p>
+                        <ul class="checklist">
+                            <li>مطابقة الكميات المستلمة مع الطلب</li>
+                            <li>فحص جودة البضائع</li>
+                            <li>إدخال فاتورة الشراء</li>
+                            <li>تحديث مخزون الأصناف</li>
+                            <li>تسجيل أي تالف أو ناقص</li>
+                            <li>اعتماد الفاتورة للدفع</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-icon">
+                                <i class="fas fa-file-invoice-dollar"></i>
+                            </div>
+                            <h3 class="card-title">فواتير الشراء</h3>
+                        </div>
+                        <p>معالجة فواتير الموردين:</p>
+                        <div class="example">
+# أنواع فواتير الشراء:<br>
+- فواتير مواد خام<br>
+- فواتير مواد تغليف<br>
+- فواتير خدمات<br>
+- فواتير مصاريف تشغيل<br>
+<br>
+# حالات الفاتورة:<br>
+- قيد المراجعة<br>
+- معتمدة للدفع<br>
+- مسددة<br>
+- ملغاة
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- قسم التقارير والإحصائيات -->
+            <div class="content-section" id="reports">
+                <div class="section-header">
+                    <h2><i class="fas fa-chart-bar"></i> التقارير والإحصائيات</h2>
+                    <p>تحليل الأداء واتخاذ القرارات بناءً على البيانات</p>
+                </div>
+                
+                <div class="cards-grid">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-icon">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <h3 class="card-title">تقارير المبيعات</h3>
+                        </div>
+                        <p>أهم تقارير المبيعات المتاحة:</p>
+                        <ul class="checklist">
+                            <li>تقرير مبيعات حسب الصنف</li>
+                            <li>تقرير مبيعات حسب العميل</li>
+                            <li>تقرير مبيعات حسب المنطقة</li>
+                            <li>تقرير المبيعات اليومية</li>
+                            <li>تحليل هامش الربح</li>
+                            <li>مقارنة المبيعات بالفترات السابقة</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-icon">
+                                <i class="fas fa-warehouse"></i>
+                            </div>
+                            <h3 class="card-title">تقارير المخزون</h3>
+                        </div>
+                        <p>تقارير مراقبة المخزون:</p>
+                        <ul class="checklist">
+                            <li>كشف حركة المخزون</li>
+                            <li>تقرير الأصناف بطيئة الحركة</li>
+                            <li>تقرير الأصناف المنتهية</li>
+                            <li>تحليل دوران المخزون</li>
+                            <li>تقرير الجرد الفعلي</li>
+                            <li>تنبيهات المخزون الأدنى</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-icon">
+                                <i class="fas fa-file-invoice-dollar"></i>
+                            </div>
+                            <h3 class="card-title">تقارير مالية</h3>
+                        </div>
+                        <p>التقارير المالية الأساسية:</p>
+                        <ul class="checklist">
+                            <li>قائمة الدخل</li>
+                            <li>الميزانية العمومية</li>
+                            <li>تقرير التدفقات النقدية</li>
+                            <li>تقرير حسابات العملاء</li>
+                            <li>تقرير حسابات الموردين</li>
+                            <li>تقرير المصروفات</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="note success">
+                    <i class="fas fa-check-circle"></i> يمكنك تخصيص التقارير وتصديرها بصيغ متعددة (PDF, Excel, Print)
+                </div>
+            </div>
+
+            <!-- قسم استكشاف الأخطاء -->
+            <div class="content-section" id="troubleshooting">
+                <div class="section-header">
+                    <h2><i class="fas fa-tools"></i> استكشاف الأخطاء</h2>
+                    <p>حل المشاكل الشائعة واستكشاف الأخطاء في النظام</p>
+                </div>
+                
+                <div class="cards-grid">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-icon">
+                                <i class="fas fa-database"></i>
+                            </div>
+                            <h3 class="card-title">مشاكل قاعدة البيانات</h3>
+                        </div>
+                        <p>المشاكل الشائعة وحلولها:</p>
+                        <ul class="step-list">
+                            <li class="step-item">
+                                <div class="step-number">1</div>
+                                <strong>خطأ في الاتصال:</strong> تحقق من إعدادات الخادم
+                            </li>
+                            <li class="step-item">
+                                <div class="step-number">2</div>
+                                <strong>جداول مفقودة:</strong> تشغيل سكريبت التثبيت
+                            </li>
+                            <li class="step-item">
+                                <div class="step-number">3</div>
+                                <strong>بطء النظام:</strong> تحسين قاعدة البيانات
+                            </li>
+                            <li class="step-item">
+                                <div class="step-number">4</div>
+                                <strong>تلف البيانات:</strong> استعادة نسخة احتياطية
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-icon">
+                                <i class="fas fa-user-lock"></i>
+                            </div>
+                            <h3 class="card-title">مشاكل المستخدمين والصلاحيات</h3>
+                        </div>
+                        <p>أخطاء الصلاحيات والحلول:</p>
+                        <ul class="checklist">
+                            <li>المستخدم لا يرى بعض القوائم</li>
+                            <li>عدم القدرة على تنفيذ عمليات</li>
+                            <li>رسائل "غير مصرح به"</li>
+                            <li>مشاكل في كلمة المرور</li>
+                            <li>تقييد الوصول للتقارير</li>
+                        </ul>
+                        <div class="note">
+                            <i class="fas fa-lightbulb"></i> تحقق من إعدادات الصلاحيات في <span class="path">الإدارة → المستخدمين</span>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-icon">
+                                <i class="fas fa-calculator"></i>
+                            </div>
+                            <h3 class="card-title">مشاكل الحسابات والمخزون</h3>
+                        </div>
+                        <p>الأخطاء المحاسبية وحلولها:</p>
+                        <ul class="step-list">
+                            <li class="step-item">
+                                <div class="step-number">1</div>
+                                <strong>عدم توازن الميزانية:</strong> مراجعة قيود اليومية
+                            </li>
+                            <li class="step-item">
+                                <div class="step-number">2</div>
+                                <strong>فروق في المخزون:</strong> إجراء جرد دوري
+                            </li>
+                            <li class="step-item">
+                                <div class="step-number">3</div>
+                                <strong>أخطاء في الفواتير:</strong> استخدام تصحيح الفواتير
+                            </li>
+                            <li class="step-item">
+                                <div class="step-number">4</div>
+                                <strong>مشاكل في التقارير:</strong> تحديث إعدادات التقارير
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="note warning">
+                    <i class="fas fa-exclamation-triangle"></i> دائماً احتفظ بنسخ احتياطية دورية من قاعدة البيانات قبل أي تعديلات كبيرة
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="print-btn" onclick="window.print()">
+        <i class="fas fa-print"></i>
+    </div>
+
+    <script>
+        // التنقل بين الأقسام
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', function() {
+                // إزالة النشاط من جميع العناصر
+                document.querySelectorAll('.nav-item').forEach(nav => {
+                    nav.classList.remove('active');
+                });
+                
+                // إخفاء جميع الأقسام
+                document.querySelectorAll('.content-section').forEach(section => {
+                    section.classList.remove('active');
+                });
+                
+                // إضافة النشاط للعنصر المحدد
+                this.classList.add('active');
+                
+                // إظهار القسم المحدد
+                const targetId = this.getAttribute('data-target');
+                document.getElementById(targetId).classList.add('active');
+                
+                // تحديث شريط التقدم
+                updateProgress();
+            });
+        });
+        
+        // البحث في المحتوى
+        document.querySelector('.search-input').addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            
+            document.querySelectorAll('.content-section').forEach(section => {
+                const content = section.textContent.toLowerCase();
+                if (content.includes(searchTerm)) {
+                    section.style.display = 'block';
+                } else {
+                    section.style.display = 'none';
+                }
+            });
+        });
+        
+        // تحديث شريط التقدم
+        function updateProgress() {
+            const totalSections = document.querySelectorAll('.content-section').length;
+            const activeSection = document.querySelector('.content-section.active');
+            const sectionsArray = Array.from(document.querySelectorAll('.content-section'));
+            const activeIndex = sectionsArray.indexOf(activeSection);
+            const progress = (activeIndex / (totalSections - 1)) * 100;
+            
+            document.querySelector('.progress-fill').style.width = `${progress}%`;
+            document.querySelector('.progress-section span').textContent = `${Math.round(progress)}% مكتمل`;
+        }
+        
+        // تحديث التقدم عند التحميل
+        document.addEventListener('DOMContentLoaded', updateProgress);
+    </script>
+</body>
+</html>

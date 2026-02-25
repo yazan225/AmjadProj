@@ -1,0 +1,407 @@
+﻿<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>دليل استخدام FrontAccounting بالعربية</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --light-color: #ecf0f1;
+            --dark-color: #34495e;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--dark-color));
+            color: white;
+            padding: 1rem;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+        
+        .logo-icon {
+            font-size: 2.5rem;
+            margin-left: 10px;
+        }
+        
+        h1 {
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .content {
+            display: flex;
+            flex: 1;
+        }
+        
+        .sidebar {
+            width: 280px;
+            background-color: white;
+            padding: 1.5rem;
+            box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+            overflow-y: auto;
+        }
+        
+        .search-box {
+            margin-bottom: 1.5rem;
+        }
+        
+        .search-box input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+        
+        .main-menu {
+            list-style: none;
+        }
+        
+        .main-menu li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .main-menu a {
+            display: block;
+            padding: 0.8rem 1rem;
+            text-decoration: none;
+            color: var(--dark-color);
+            border-radius: 4px;
+            transition: all 0.3s;
+        }
+        
+        .main-menu a:hover, .main-menu a.active {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+        
+        .main-content {
+            flex: 1;
+            padding: 2rem;
+            background-color: white;
+            margin: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .section {
+            margin-bottom: 2.5rem;
+        }
+        
+        .section h2 {
+            color: var(--primary-color);
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--light-color);
+            margin-bottom: 1.5rem;
+        }
+        
+        .section h3 {
+            color: var(--secondary-color);
+            margin: 1.2rem 0 0.8rem 0;
+        }
+        
+        .section p {
+            margin-bottom: 1rem;
+            text-align: justify;
+        }
+        
+        .steps {
+            background-color: var(--light-color);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1.2rem 0;
+        }
+        
+        .steps ol {
+            margin-right: 1.5rem;
+        }
+        
+        .steps li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .tips {
+            background-color: #fff8e1;
+            border-right: 4px solid #ffc107;
+            padding: 1rem;
+            margin: 1.2rem 0;
+        }
+        
+        .code {
+            background-color: #f5f5f5;
+            padding: 1rem;
+            border-radius: 4px;
+            font-family: monospace;
+            margin: 1rem 0;
+            overflow-x: auto;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 1.5rem;
+            background-color: var(--dark-color);
+            color: white;
+            margin-top: auto;
+        }
+        
+        @media (max-width: 768px) {
+            .content {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+                order: 2;
+            }
+            
+            .main-content {
+                margin: 0;
+                border-radius: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <div class="logo-icon">&#128202;</div>
+                <h1>دليل استخدام FrontAccounting</h1>
+            </div>
+            <p class="subtitle">الإصدار 2.4.x - باللغة العربية</p>
+        </header>
+        
+        <div class="content">
+            <aside class="sidebar">
+                <div class="search-box">
+                    <input type="text" placeholder="ابحث في الدليل...">
+                </div>
+                
+                <ul class="main-menu">
+                    <li><a href="#intro" class="active">مقدمة عن البرنامج</a></li>
+                    <li><a href="#install">طريقة التثبيت</a></li>
+                    <li><a href="#setup">الإعداد الأولي</a></li>
+                    <li><a href="#customers">إدارة العملاء</a></li>
+                    <li><a href="#suppliers">إدارة الموردين</a></li>
+                    <li><a href="#items">إدارة المنتجات</a></li>
+                    <li><a href="#invoices">الفواتير والمبيعات</a></li>
+                    <li><a href="#reports">التقارير</a></li>
+                    <li><a href="#backup">النسخ الاحتياطي</a></li>
+                    <li><a href="#troubleshooting">استكشاف الأخطاء</a></li>
+                </ul>
+            </aside>
+            
+            <main class="main-content">
+                <section id="intro" class="section">
+                    <h2>مقدمة عن FrontAccounting</h2>
+                    <p>FrontAccounting هو نظام مفتوح المصدر لإدارة المحاسبة والمخازن، مصمم خصيصًا للمؤسسات الصغيرة والمتوسطة. يتميز بواجهة بسيطة وسهلة الاستمع مع قدرات متقدمة لإدارة الفواتير والمخزون والعملاء والموردين.</p>
+                    
+                    <h3>الميزات الرئيسية</h3>
+                    <div class="steps">
+                        <ol>
+                            <li>إدارة كاملة للحسابات المالية</li>
+                            <li>إدارة العملاء والموردين</li>
+                            <li>إدارة الفواتير (المبيعات والمشتريات)</li>
+                            <li>إدارة المخزون والمنتجات</li>
+                            <li>تقارير مالية متعددة</li>
+                            <li>دعم متعدد اللغات (بما فيها العربية)</li>
+                            <li>إمكانية التخصيص والتوسيع</li>
+                        </ol>
+                    </div>
+                </section>
+                
+                <section id="install" class="section">
+                    <h2>طريقة تثبيت البرنامج</h2>
+                    <p>لتركيب FrontAccounting على خادمك، اتبع الخطوات التالية:</p>
+                    
+                    <div class="steps">
+                        <ol>
+                            <li>تأكد من أن الخادم يدعم PHP version 5.6 أو أعلى وقاعدة بيانات MySQL</li>
+                            <li>قم بتحميل آخر إصدار من البرنامج من الموقع الرسمي</li>
+                            <li>فك ضغط الملفات على الخادم في المجلد المطلوب</li>
+                            <li>افتح متصفحك واذهب إلى عنوان التثبيت</li>
+                            <li>اتبع خطوات التثبيت المعروضة على الشاشة</li>
+                            <li>أدخل معلومات اتصال قاعدة البيانات</li>
+                            <li>أنشئ مستخدم المسؤول (admin)</li>
+                            <li>اضبط الإعدادات الأساسية للشركة</li>
+                        </ol>
+                    </div>
+                    
+                    <div class="tips">
+                        <strong>نصيحة:</strong> تأكد من أن مجلدات التثبيت لها صلاحيات الكتابة أثناء عملية التثبيت.
+                    </div>
+                </section>
+                
+                <section id="setup" class="section">
+                    <h2>الإعداد الأولي للبرنامج</h2>
+                    <p>بعد التثبيت، تحتاج إلى إعداد الأساسيات لبدء استخدام البرنامج:</p>
+                    
+                    <h3>إعداد الشركة</h3>
+                    <p>من قائمة الإعدادات &#8594; الشركة &#8594; بيانات الشركة، أدخل المعلومات الأساسية لشركتك:</p>
+                    <div class="code">
+اسم الشركة: <br>
+العنوان: <br>
+الهاتف: <br>
+البريد الإلكتروني: <br>
+الموقع الإلكتروني: <br>
+                    </div>
+                    
+                    <h3>إعداد العملة والتاريخ</h3>
+                    <p>اضبط العملة الأساسية وتنسيق التاريخ من خلال:</p>
+                    <div class="code">
+الإعدادات &#8594; النظام &#8594; إعدادات النظام
+                    </div>
+                    
+                    <h3>إعداد السنة المالية</h3>
+                    <p>حدد بداية ونهاية السنة المالية لشركتك من:</p>
+                    <div class="code">
+المحاسبة &#8594; إعداد السنة المالية
+                    </div>
+                </section>
+                
+                <section id="customers" class="section">
+                    <h2>إدارة العملاء</h2>
+                    <p>يسمح لك FrontAccounting بإدارة معلومات العملاء بشكل كامل.</p>
+                    
+                    <h3>إضافة عميل جديد</h3>
+                    <div class="steps">
+                        <ol>
+                            <li>انتقل إلى العملاء &#8594; إضافة عميل جديد</li>
+                            <li>املأ المعلومات الأساسية (الاسم، العنوان، التواصل)</li>
+                            <li>حدد مجموعة العميل المناسبة</li>
+                            <li>اضبط إعدادات الائتمان والدفع إذا لزم الأمر</li>
+                            <li>احفظ المعلومات</li>
+                        </ol>
+                    </div>
+                    
+                    <h3>إدارة حسابات العملاء</h3>
+                    <p>يمكنك عرض كشف حساب أي عميل من خلال:</p>
+                    <div class="code">
+العملاء &#8594; كشف حساب العميل
+                    </div>
+                </section>
+                
+                <section id="reports" class="section">
+                    <h2>التقارير في FrontAccounting</h2>
+                    <p>يقدم البرنامج مجموعة متنوعة من التقارير المالية والإدارية:</p>
+                    
+                    <h3>التقارير المالية</h3>
+                    <div class="steps">
+                        <ul>
+                            <li>ميزان المراجعة</li>
+                            <li>قائمة الدخل</li>
+                            <li>الميزانية العمومية</li>
+                            <li>حركة الحسابات</li>
+                        </ul>
+                    </div>
+                    
+                    <h3>تقارير المبيعات والمشتريات</h3>
+                    <div class="steps">
+                        <ul>
+                            <li>تقارير المبيعات حسب العميل</li>
+                            <li>تقارير المبيعات حسب الصنف</li>
+                            <li>تقارير المشتريات حسب المورد</li>
+                            <li>تقارير المشتريات حسب الصنف</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="tips">
+                        <strong>ملاحظة:</strong> يمكنك تصدير معظم التقارير إلى صيغ مختلفة مثل PDF أو Excel.
+                    </div>
+                </section>
+                
+                <section id="troubleshooting" class="section">
+                    <h2>استكشاف الأخطاء وإصلاحها</h2>
+                    <p>فيما يلي بعض المشاكل الشائعة وحلولها:</p>
+                    
+                    <h3>مشاكل في تسجيل الدخول</h3>
+                    <p>إذا نسيت كلمة المرور، يمكنك إعادة تعيينها مباشرة من قاعدة البيانات:</p>
+                    <div class="code">
+UPDATE `users` SET `password` = MD5('كلمة السر الجديدة') 
+WHERE `user_id` = 'اسم المستخدم';
+                    </div>
+                    
+                    <h3>مشاكل في الاتصال بقاعدة البيانات</h3>
+                    <p>تأكد من أن معلومات الاتصال في ملف config.php صحيحة:</p>
+                    <div class="code">
+// في ملف config.php في مجلد التركيب
+$db_server = "localhost"; // أو عنوان الخادم
+$db_name = "اسم قاعدة البيانات";
+$db_user = "اسم المستخدم";
+$db_password = "كلمة المرور";
+                    </div>
+                </section>
+            </main>
+        </div>
+        
+        <footer>
+            <p>دليل استخدام FrontAccounting باللغة العربية | تم التحديث في سبتمبر 2023</p>
+            <p>للأسئلة والاستفسارات، يرجى زيارة <a href="https://www.frontaccounting.com" style="color: #3498db;">الموقع الرسمي</a></p>
+        </footer>
+    </div>
+
+    <script>
+        // كود JavaScript للتنقل بين الأقسام
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuLinks = document.querySelectorAll('.main-menu a');
+            
+            menuLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // إزالة النشاط من جميع الروابط
+                    menuLinks.forEach(item => item.classList.remove('active'));
+                    
+                    // إضافة النشاط للرابط الحالي
+                    this.classList.add('active');
+                    
+                    // الانتقال للقسم المطلوب
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetSection = document.getElementById(targetId);
+                    
+                    if (targetSection) {
+                        window.scrollTo({
+                            top: targetSection.offsetTop - 20,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
